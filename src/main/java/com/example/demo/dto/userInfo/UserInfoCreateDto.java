@@ -1,50 +1,27 @@
-package com.example.demo.entity;
+package com.example.demo.dto.userInfo;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import jakarta.persistence.*;
+public class UserInfoCreateDto {
 
-@Table(name = "user_info")
-@Entity
-public class UserInfo {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Long id;
-
-    @Column(name = "id_number", nullable = false)
     private String idNumber;
 
-    @Column(name = "gender", nullable = false)
     private String gender;
 
-    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "birthday", nullable = false)
     private String birthday;
 
-    @Column(name = "mobile_number", nullable = false)
     private String mobileNumber;
 
-    @Column(name = "landline_number", nullable = true)
     private String landlineNumber;
 
-    @Column(name = "permanent_address", nullable = false)
     private String permanentAddress;
 
-    @Column(name = "mailing_address", nullable = false)
     private String mailingAddress;
 
-    @OneToOne
-    @JsonBackReference("User_UserInfo")
-    @JoinColumn(name = "user_id")
-    private User user;
-
-    public UserInfo() {
+    public UserInfoCreateDto() {
     }
 
-    public UserInfo(String idNumber, String gender, String name, String birthday, String mobileNumber, String landlineNumber, String permanentAddress, String mailingAddress, User user) {
+    public UserInfoCreateDto(String idNumber, String gender, String name, String birthday, String mobileNumber, String landlineNumber, String permanentAddress, String mailingAddress) {
         this.idNumber = idNumber;
         this.gender = gender;
         this.name = name;
@@ -53,15 +30,6 @@ public class UserInfo {
         this.landlineNumber = landlineNumber;
         this.permanentAddress = permanentAddress;
         this.mailingAddress = mailingAddress;
-        this.user = user;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getIdNumber() {
@@ -126,28 +94,5 @@ public class UserInfo {
 
     public void setMailingAddress(String mailingAddress) {
         this.mailingAddress = mailingAddress;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    @Override
-    public String toString() {
-        return "UserInfo{" +
-                "id=" + id +
-                ", idNumber='" + idNumber + '\'' +
-                ", gender='" + gender + '\'' +
-                ", name='" + name + '\'' +
-                ", birthday='" + birthday + '\'' +
-                ", mobileNumber='" + mobileNumber + '\'' +
-                ", landlineNumber='" + landlineNumber + '\'' +
-                ", permanentAddress='" + permanentAddress + '\'' +
-                ", mailingAddress='" + mailingAddress + '\'' +
-                '}';
     }
 }
