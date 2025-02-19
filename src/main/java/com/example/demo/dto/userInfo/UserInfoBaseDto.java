@@ -1,21 +1,43 @@
 package com.example.demo.dto.userInfo;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
+
 public abstract class UserInfoBaseDto {
-    private Long id;
+
+    @NotBlank(message = "身分證字號不能為空")
+    @Pattern(regexp = "^[A-Z][12]\\d{8}$", message = "請輸入有效的身分證字號")
     private String idNumber;
+
+    @NotBlank(message = "性別不能為空")
+    @Pattern(regexp = "^(male|female)$", message = "性別只能是 male 或 female")
     private String gender;
+
+    @NotBlank(message = "姓名不能為空")
+    @Size(min = 2, message = "姓名長度至少 2 位")
     private String name;
+
+    @NotBlank(message = "生日不能為空")
+    @Pattern(regexp = "^\\d{4}-\\d{2}-\\d{2}$", message = "生日格式必須為 YYYY-MM-DD")
     private String birthday;
+
+    @NotBlank(message = "手機號碼不能為空")
+    @Pattern(regexp = "^09\\d{8}$", message = "請輸入有效的手機號碼")
     private String mobileNumber;
+
     private String landlineNumber;
+
+    @NotBlank(message = "戶籍地址不能為空")
     private String permanentAddress;
+
+    @NotBlank(message = "通訊地址不能為空")
     private String mailingAddress;
 
     public UserInfoBaseDto() {
     }
 
-    public UserInfoBaseDto(Long id, String idNumber, String gender, String name, String birthday, String mobileNumber, String landlineNumber, String permanentAddress, String mailingAddress) {
-        this.id = id;
+    public UserInfoBaseDto(String idNumber, String gender, String name, String birthday, String mobileNumber, String landlineNumber, String permanentAddress, String mailingAddress) {
         this.idNumber = idNumber;
         this.gender = gender;
         this.name = name;
@@ -24,14 +46,6 @@ public abstract class UserInfoBaseDto {
         this.landlineNumber = landlineNumber;
         this.permanentAddress = permanentAddress;
         this.mailingAddress = mailingAddress;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getIdNumber() {

@@ -12,9 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,6 +28,7 @@ public class UserServiceImpl implements UserService {
     UserInfoRepository userInfoRepository;
 
     //獲取單個用戶資料
+    @Transactional
     @Override
     public ResponseEntity<UserInfoGetDto> getUserInfo(HttpSession session) {
 
@@ -65,6 +66,7 @@ public class UserServiceImpl implements UserService {
     }
 
     //獲取多個用戶資料，僅管理者可以
+    @Transactional
     @Override
     public ResponseEntity<List<UserInfo>> getUserInfos(HttpSession session) {
 
@@ -83,6 +85,8 @@ public class UserServiceImpl implements UserService {
         return ResponseEntity.ok(userInfos);
     }
 
+    @Transactional
+    @Override
     public ResponseEntity<UserInfoUpdateDto> updateUserInfo(HttpSession session, @RequestBody UserInfoUpdateDto userInfoUpdateDto) {
 
         Long userId = (Long) session.getAttribute("userId");
@@ -103,10 +107,10 @@ public class UserServiceImpl implements UserService {
             UserInfo userInfo = existingUser.getUserInfo();
 
             // 根據 DTO 更新 UserInfo 的資料
-            userInfo.setIdNumber(userInfoUpdateDto.getIdNumber());
-            userInfo.setGender(userInfoUpdateDto.getGender());
-            userInfo.setName(userInfoUpdateDto.getName());
-            userInfo.setBirthday(userInfoUpdateDto.getBirthday());
+            userInfo.setIdNumber(userInfo.getIdNumber());
+            userInfo.setGender(userInfo.getGender());
+            userInfo.setName(userInfo.getName());
+            userInfo.setBirthday(userInfo.getBirthday());
             userInfo.setMobileNumber(userInfoUpdateDto.getMobileNumber());
             userInfo.setLandlineNumber(userInfoUpdateDto.getLandlineNumber());
             userInfo.setPermanentAddress(userInfoUpdateDto.getPermanentAddress());

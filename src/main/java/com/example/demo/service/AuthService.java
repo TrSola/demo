@@ -11,4 +11,5 @@ public interface AuthService {
 
     ResponseEntity<String> login(AuthLoginDto authLoginDto, HttpSession session);
 
+    ResponseEntity<String> deleteAccount(HttpSession session);
 }

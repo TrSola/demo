@@ -1,12 +1,11 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.auth.AuthLoginDto;
-import com.example.demo.dto.auth.AuthLoginResDto;
 import com.example.demo.dto.auth.AuthRegisterDto;
-import com.example.demo.entity.User;
 import com.example.demo.exception.InvalidCredentialsException;
 import com.example.demo.service.AuthService;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,12 +22,12 @@ public class AuthController {
     AuthService authService;
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody AuthRegisterDto authRegisterDto) {
+    public ResponseEntity<String> register(@Valid @RequestBody AuthRegisterDto authRegisterDto) {
         return authService.register(authRegisterDto);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody AuthLoginDto authLoginDto,
+    public ResponseEntity<String> login(@Valid @RequestBody AuthLoginDto authLoginDto,
                                                  HttpSession session) {
 
         try {
@@ -44,9 +43,13 @@ public class AuthController {
 
     @PostMapping("/logout")
     public ResponseEntity<Void> logout(HttpSession session) {
-        // 清除 session
         session.invalidate();
-        return ResponseEntity.ok().build(); // 返回登出成功
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/deleteAccount")
+    public ResponseEntity<String> deleteAccount(HttpSession session) {
+        return authService.deleteAccount(session);
     }
 
 

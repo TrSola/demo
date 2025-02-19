@@ -1,22 +1,52 @@
 package com.example.demo.dto.auth;
 
-import jakarta.persistence.Column;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 public class AuthRegisterDto {
-    private String account;
-    private String password;
-    private String confirmPassword;
-    private String accountStatus;
 
-    //userInfo
+    @NotBlank(message = "帳號不能為空")
+    @Email(message = "請輸入有效的電子郵件")
+    private String account;
+
+    @NotBlank(message = "密碼不能為空")
+    @Size(min = 8, message = "密碼長度至少 8 位")
+    private String password;
+
+    @NotBlank(message = "確認密碼不能為空")
+    private String confirmPassword;
+
+    @NotBlank(message = "身分證字號不能為空")
+    @Pattern(regexp = "^[A-Z][12]\\d{8}$", message = "請輸入有效的身分證字號")
     private String idNumber;
+
+    @NotBlank(message = "性別不能為空")
+    @Pattern(regexp = "^(male|female)$", message = "性別只能是 male 或 female")
     private String gender;
+
+    @NotBlank(message = "姓名不能為空")
+    @Size(min = 2, message = "姓名長度至少 2 位")
     private String name;
+
+    @NotBlank(message = "生日不能為空")
+    @Pattern(regexp = "^\\d{4}-\\d{2}-\\d{2}$", message = "生日格式必須為 YYYY-MM-DD")
     private String birthday;
+
+    @NotBlank(message = "手機號碼不能為空")
+    @Pattern(regexp = "^09\\d{8}$", message = "請輸入有效的手機號碼")
     private String mobileNumber;
+
     private String landlineNumber;
+
+    @NotBlank(message = "戶籍地址不能為空")
     private String permanentAddress;
+
+    @NotBlank(message = "通訊地址不能為空")
     private String mailingAddress;
+
+    private String accountStatus;
 
     public AuthRegisterDto() {
     }
