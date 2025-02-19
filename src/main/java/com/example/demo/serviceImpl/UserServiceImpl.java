@@ -107,10 +107,6 @@ public class UserServiceImpl implements UserService {
             UserInfo userInfo = existingUser.getUserInfo();
 
             // 根據 DTO 更新 UserInfo 的資料
-            userInfo.setIdNumber(userInfo.getIdNumber());
-            userInfo.setGender(userInfo.getGender());
-            userInfo.setName(userInfo.getName());
-            userInfo.setBirthday(userInfo.getBirthday());
             userInfo.setMobileNumber(userInfoUpdateDto.getMobileNumber());
             userInfo.setLandlineNumber(userInfoUpdateDto.getLandlineNumber());
             userInfo.setPermanentAddress(userInfoUpdateDto.getPermanentAddress());
